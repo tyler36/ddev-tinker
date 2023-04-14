@@ -1,0 +1,39 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Run project PHP REPL. Arguments piped through to REPL.
+## Usage: tinker
+## Example: "ddev tinker"
+## Example: Output the first user's email in a Laravel project.
+## Example: "ddev tinker 'User::first()->email'"
+## Example: Outputs the first user's email in a Drupal project.
+## Example: "ddev tinker '$user = \Drupal\user\Entity\User::load(1); print $user->getEmail();'"
+## ExecRaw: true
+
+if [ "${DDEV_PROJECT_TYPE}" == "laravel" ]; then
+  # CHECK if arguments were passed
+  if [ -z "$1" ]; then
+    php artisan tinker
+  else
+    php artisan tinker --execute="dd($1);"
+  fi
+
+  exit 0
+fi
+
+if [[ "${DDEV_PROJECT_TYPE}" == *"drupal"* ]]; then
+  # CHECK the "drush" command is available
+  if ! command -v drush >/dev/null; then
+    echo "Drush is not available. You may need to 'ddev composer require drush/drush'"
+    exit 1
+  fi
+
+  # CHECK if arguments were passed
+  if [ -z "$1" ]; then
+    drush php
+  else
+    drush php:eval "$1"
+  fi
+
+  exit 0
+fi
