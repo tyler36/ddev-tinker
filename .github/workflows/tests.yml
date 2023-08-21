@@ -38,7 +38,6 @@ jobs:
     strategy:
       matrix:
         ddev_version: [stable, HEAD]
-#        ddev_version: [stable, edge, HEAD, PR]
       fail-fast: false
 
     runs-on: ubuntu-20.04
