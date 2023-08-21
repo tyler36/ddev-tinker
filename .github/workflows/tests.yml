@@ -18,16 +18,8 @@ on:
 permissions:
   contents: write
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   tests:
-    defaults:
-      run:
-        shell: bash
-
     strategy:
       matrix:
         ddev_version: [stable, HEAD]
