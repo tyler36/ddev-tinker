@@ -11,5 +11,9 @@ post_install_actions:
 - |
   #ddev-nodisplay
   #ddev-description:Downloading English manual ...
-  mkdir -p ~/.ddev/homeadditions/.local/share/psysh
-  curl -sSL http://psysh.org/manual/en/php_manual.sqlite -o ~/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite
+  mkdir -p ./homeadditions/.local/share/psysh
+  curl -sSL http://psysh.org/manual/en/php_manual.sqlite -o ./homeadditions/.local/share/psysh/php_manual.sqlite
+
+# Shell actions that can be done during removal of the add-on
+removal_actions:
+- rm ./homeadditions/.local/share/psysh/php_manual.sqlite
