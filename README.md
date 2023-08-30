@@ -91,7 +91,7 @@ Wrapping may also work with <kbd>"</kbd>, depending on the command used. For mor
 Out of the box, Psysh contains a `doc` command that reads "... the documentation for an object, class, constant, method or property".
 
 This add-on downloads the Psysh PHP **_English_** manual to the required location for Psysh to find it in the container.
-For other languages, manually download the file from [here](https://github.com/bobthecow/psysh/wiki/PHP-manual), and place it in your `~/.ddev/homeadditions/.local/share/psysh` folder.
+For other languages, manually download the file from [here](https://github.com/bobthecow/psysh/wiki/PHP-manual), and place it in your project's `.ddev/homeadditions/.local/share/psysh` folder.
 
 To use the manual, start a session and type `doc [FUNCTION_NAME]`:
 
