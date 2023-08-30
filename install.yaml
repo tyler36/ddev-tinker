@@ -8,3 +8,8 @@ global_files:
 # DDEV environment variables can be interpolated into these actions
 post_install_actions:
 - chmod +x ~/.ddev/commands/web/tinker
+- |
+  #ddev-nodisplay
+  #ddev-description:Downloading English manual ...
+  mkdir -p ~/.ddev/homeadditions/.local/share/psysh
+  curl -sSL http://psysh.org/manual/en/php_manual.sqlite -o ~/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite
