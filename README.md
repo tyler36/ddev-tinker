@@ -8,6 +8,7 @@
 - [Getting started](#getting-started)
 - [Usage](#usage)
    - [Arguments](#arguments)
+   - [Doc command](#doc-command)
 
 ## What is ddev-tinker?
 
@@ -84,5 +85,25 @@ To start your framework's REPL environment, simply type the follow:
 While this might be helpful for a quick one-off command, it's recommend to run `ddev tinker` for tinkering to avoid any Docker connection delays between multiple commands.
 
 Wrapping may also work with <kbd>"</kbd>, depending on the command used. For more consistent results between frameworks and host OS, it is recommended to use <kbd>'</kbd>. See [ddev/ddev#2547](https://github.com/ddev/ddev/issues/2547)
+
+### Doc command
+
+Out of the box, Psysh contains a `doc` command that reads "... the documentation for an object, class, constant, method or property".
+
+This add-on downloads the Psysh PHP **_English_** manual to the required location for Psysh to find it in the container.
+For other languages, manually download the file from [here](https://github.com/bobthecow/psysh/wiki/PHP-manual), and place it in your project's `.ddev/homeadditions/.local/share/psysh` folder.
+
+To use the manual, start a session and type `doc [FUNCTION_NAME]`:
+
+```shell
+$ ddev tinker
+Psy Shell v0.11.13 (PHP 8.1.21 — cli) by Justin Hileman
+> doc array_unique
+function array_unique(array $array, int $flags = 2): array
+
+Description:
+  Removes duplicate values from an array
+...
+```
 
 **Contributed and maintained by [@tyler36](https://github.com/tyler36) based on the original [ddev-contrib recipe](https://github.com/ddev/ddev-contrib/tree/master/docker-compose-services/RECIPE) by [@tyler36](https://github.com/tyler36)**

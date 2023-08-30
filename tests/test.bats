@@ -14,7 +14,10 @@ health_checks() {
 }
 
 validate_tinker() {
+  # Output should contain outcome
   ddev tinker 'print "tinker working " . 99+1' | grep 'working 100'
+  # Manual should exist
+  test -f ${TESTDIR}/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite || (printf "Failed to find manual in ${TESTDIR}\n" && exit 1)
 }
 
 teardown() {
@@ -58,7 +61,7 @@ teardown() {
   # Get addon and test
   ddev get ${DIR}
   ddev restart
-  health_checks
+  ddev exec "curl -s https://localhost:443/ | grep Laravel"
   validate_tinker
 }
 
@@ -74,6 +77,6 @@ teardown() {
   # Get addon and test
   ddev get ${DIR}
   ddev restart
-  health_checks
+  ddev exec "curl -s https://localhost:443/ | grep Welcome"
   validate_tinker
 }
