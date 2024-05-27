@@ -2,12 +2,11 @@ name: ddev-tinker
 
 # List of files and directories that are copied into the global .ddev directory
 # DDEV environment variables can be interpolated into these filenames
-global_files:
+project_files:
 - commands/web/tinker
 
 # DDEV environment variables can be interpolated into these actions
 post_install_actions:
-- chmod +x ~/.ddev/commands/web/tinker
 - |
   #ddev-nodisplay
   #ddev-description:Downloading English manual ...
@@ -17,3 +16,5 @@ post_install_actions:
 # Shell actions that can be done during removal of the add-on
 removal_actions:
 - rm ./homeadditions/.local/share/psysh/php_manual.sqlite
+# We are changing to "project-level" command, so delete the global command if it exists.
+- if grep "#ddev-generated" ~/.ddev/commands/web/tinker 2>/dev/null; then rm ~/.ddev/commands/web/tinker; fi
