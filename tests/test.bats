@@ -17,6 +17,11 @@ validate_tinker() {
   # Output should contain outcome
   ddev tinker 'print "tinker working " . 99+1' | grep 'working 100'
   # Manual should exist
+  validate_php_manual
+}
+
+validate_php_manual() {
+  # Manual should exist
   test -f ${TESTDIR}/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite || (printf "Failed to find manual in ${TESTDIR}\n" && exit 1)
 }
 
@@ -36,6 +41,30 @@ teardown() {
   ddev get ${DIR}
   ddev restart
   health_checks
+}
+
+@test "Non-English manuals can be installed" {
+  set -eu -o pipefail
+  cd ${TESTDIR}
+  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev config --project-name=${PROJNAME}
+  ddev get ${DIR}
+  ddev restart
+  validate_php_manual
+
+  # Grab the size of the file so we can compare it to another the second time.
+  EN_SIZE=$(ddev . stat -c%s '~/.local/share/psysh/php_manual.sqlite')
+
+  # Delete the file so we can change the language.
+  rm "${TESTDIR}/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite"
+
+  # Change the language and get it again. NOTE: This requires a restart.
+  LANG="ja_JP.UTF-8" ddev get-php-manual
+  ddev restart
+  validate_php_manual
+
+  JA_SIZE=$(ddev . stat -c%s '~/.local/share/psysh/php_manual.sqlite')
+  [ $EN_SIZE != $JA_SIZE ]
 }
 
 @test "install from release" {

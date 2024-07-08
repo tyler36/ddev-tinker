@@ -4,14 +4,14 @@ name: ddev-tinker
 # DDEV environment variables can be interpolated into these filenames
 project_files:
 - commands/web/tinker
+- commands/host/get-php-manual
 
 # DDEV environment variables can be interpolated into these actions
 post_install_actions:
 - |
   #ddev-nodisplay
-  #ddev-description:Downloading English manual ...
-  mkdir -p ./homeadditions/.local/share/psysh
-  curl -sSL http://psysh.org/manual/en/php_manual.sqlite -o ./homeadditions/.local/share/psysh/php_manual.sqlite
+  #ddev-description:Downloading PHP core manual
+  ddev get-php-manual
 
 # Shell actions that can be done during removal of the add-on
 removal_actions:
