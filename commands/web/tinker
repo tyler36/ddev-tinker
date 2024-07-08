@@ -37,3 +37,15 @@ if [[ "${DDEV_PROJECT_TYPE}" == *"drupal"* ]]; then
 
   exit 0
 fi
+
+if [ "${DDEV_PROJECT_TYPE}" == "cakephp" ]; then
+  # CHECK the "drush" command is available
+  if ! bin/cake --help | grep console >/dev/null; then
+    echo "Console is not available. You may need to 'ddev composer require --dev cakephp/repl'"
+    exit 1
+  fi
+
+  bin/cake console "$1"
+
+  exit 0
+fi
