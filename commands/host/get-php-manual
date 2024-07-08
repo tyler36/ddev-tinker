@@ -1,0 +1,44 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: This script is part of "tyler36/ddev-tinker". It's purpose is to download
+##              Psysh's PHP core documentation. After starting a "ddev tinker" session,
+##              type "doc date", where 'date' is any core PHP function. It will display a
+##              man-like page detailing the function.
+##              @see https://github.com/bobthecow/psysh/wiki/PHP-manual
+##              This addon does a "simple" (and naive) language check to see if the developer
+##              may prefer a different locale. See "Example" below to "fake" a non-English setup.
+## Usage: get-php-manual
+## Example: "ddev get-php-manual"
+## Example: "LANG=ja_JP.UTF8 ddev get-php-manual"
+
+mkdir -p "$DDEV_APPROOT/.ddev/homeadditions/.local/share/psysh"
+
+FILENAME=php_manual.sqlite
+BASE_URL="http://psysh.org/manual"
+
+## Parse the LANG and see if the developer has a non-English language
+case "${LANG}" in
+    de* )
+        ## Assume German from "LANG=de_DE.UTF-8"
+        MANUAL="de/$FILENAME"
+        ;;
+    fr* )
+        ## Assume French from "LANG=fr_FR.UTF-8"
+        MANUAL="fr/$FILENAME"
+        ;;
+    ja* )
+        ## Assume Japanese from "LANG=ja_JP.UTF8"
+        MANUAL="ja/$FILENAME"
+        ;;
+    ru* )
+        ## Assume Russian from "LANG=ru_RU.UTF-8"
+        MANUAL="ru/$FILENAME"
+        ;;
+    * )
+        ## Default to English
+        MANUAL="en/$FILENAME"
+        ;;
+esac
+
+curl -sSL "$BASE_URL/$MANUAL" -o "$DDEV_APPROOT/.ddev/homeadditions/.local/share/psysh/$FILENAME"
