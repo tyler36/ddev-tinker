@@ -109,3 +109,25 @@ teardown() {
   ddev exec "curl -s https://localhost:443/ | grep Welcome"
   validate_tinker
 }
+
+@test "CakePHP 5 project type" {
+  set -eu -o pipefail
+  cd ${TESTDIR}
+  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  # Setup a CakePHP 5 project
+  ddev config --project-type=cakephp --docroot=webroot
+  ddev composer create --prefer-dist --no-interaction cakephp/app:~5.0
+
+  # Get addon and test
+  ddev get ${DIR}
+  ddev restart
+  ddev exec "curl -s https://localhost:443/ | grep 'Welcome to CakePHP'"
+
+  # Add REPL. The plugin was shipped with the CakePHP app skeleton before 4.3.
+  ddev composer require --dev cakephp/repl
+  ddev cake plugin load Cake/Repl
+
+  # CakePHP console does not seem to have a "single" command output.
+  # Instead, we'll check that the "help" displays as expected to validate.
+  ddev tinker --help | grep 'This command provides a REPL'
+}
