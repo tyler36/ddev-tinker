@@ -37,6 +37,7 @@ This addon current supports the following frameworks:
 
 - [Laravel](https://laravel.com/)
 - [Drupal](https://www.drupal.org/) (via [Drush](https://www.drush.org/))
+- [CakePHP](https://cakephp.org/) (via [REPL](https://github.com/cakephp/repl))
 
 PRs are welcome to add more frameworks.
 
