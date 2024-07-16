@@ -41,7 +41,7 @@ fi
 if [ "${DDEV_PROJECT_TYPE}" == "cakephp" ]; then
   # CHECK the "drush" command is available
   if ! bin/cake --help | grep console >/dev/null; then
-    echo "Console is not available. You may need to 'ddev composer require --dev cakephp/repl'"
+    echo "Console is not available. You may need to install the plugin: 'ddev composer require --dev cakephp/repl && ddev cake plugin load Cake/Repl'"
     exit 1
   fi
 
