@@ -17,28 +17,37 @@ mkdir -p "$DDEV_APPROOT/.ddev/homeadditions/.local/share/psysh"
 FILENAME=php_manual.sqlite
 BASE_URL="http://psysh.org/manual"
 
+echo "Detected host language: ${LANG}"
+
 ## Parse the LANG and see if the developer has a non-English language
 case "${LANG}" in
     de* )
         ## Assume German from "LANG=de_DE.UTF-8"
         MANUAL="de/$FILENAME"
+        MAN_LOCALE="Deutsches Handbuch"
         ;;
     fr* )
         ## Assume French from "LANG=fr_FR.UTF-8"
         MANUAL="fr/$FILENAME"
+        MAN_LOCALE="Manuel en français"
         ;;
     ja* )
         ## Assume Japanese from "LANG=ja_JP.UTF8"
         MANUAL="ja/$FILENAME"
+        MAN_LOCALE="日本語マニュアル"
         ;;
     ru* )
         ## Assume Russian from "LANG=ru_RU.UTF-8"
         MANUAL="ru/$FILENAME"
+        MAN_LOCALE="Manuel russe"
         ;;
     * )
         ## Default to English
         MANUAL="en/$FILENAME"
+        MAN_LOCALE="English manual"
         ;;
 esac
 
+echo "Downloading: ${MAN_LOCALE}"
 curl -sSL "$BASE_URL/$MANUAL" -o "$DDEV_APPROOT/.ddev/homeadditions/.local/share/psysh/$FILENAME"
+echo "Restart the project to copy the manual into the container."
