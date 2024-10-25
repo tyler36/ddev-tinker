@@ -59,7 +59,7 @@ teardown() {
   rm "${TESTDIR}/.ddev/homeadditions/.local/share/psysh/php_manual.sqlite"
 
   # Change the language and get it again. NOTE: This requires a restart.
-  LANG="ja_JP.UTF-8" ddev add-on get-php-manual
+  LANG="ja_JP.UTF-8" ddev get-php-manual
   ddev restart
   validate_php_manual
 
