@@ -35,10 +35,10 @@ teardown() {
 @test "install from directory" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev config --project-name=${PROJNAME}
   ddev start -y >/dev/null
-  ddev get ${DIR}
+  ddev add-on get ${DIR}
   ddev restart
   health_checks
 }
@@ -46,9 +46,9 @@ teardown() {
 @test "Non-English manuals can be installed" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev config --project-name=${PROJNAME}
-  ddev get ${DIR}
+  ddev add-on get ${DIR}
   ddev restart
   validate_php_manual
 
@@ -70,10 +70,10 @@ teardown() {
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get tyler36/ddev-tinker with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get tyler36/ddev-tinker with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev config --project-name=${PROJNAME}
   ddev start -y >/dev/null
-  ddev get tyler36/ddev-tinker
+  ddev add-on get tyler36/ddev-tinker
   ddev restart >/dev/null
   health_checks
 }
@@ -81,14 +81,14 @@ teardown() {
 @test "Laravel project type" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   # Setup a Laravel project
   ddev config --project-name=${PROJNAME} --project-type=laravel --docroot=public --create-docroot --php-version=8.1
   ddev composer create --prefer-dist --no-install --no-scripts laravel/laravel:10 -y
   ddev composer install
   ddev exec "php artisan key:generate"
   # Get addon and test
-  ddev get ${DIR}
+  ddev add-on get ${DIR}
   ddev restart
   ddev exec "curl -s https://localhost:443/ | grep Laravel"
   validate_tinker
@@ -97,14 +97,14 @@ teardown() {
 @test "Drupal 10 project type" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   # Setup a Drupal 10 project
   ddev config --project-type=drupal10 --docroot=web --create-docroot
   ddev composer create drupal/recommended-project:^10 -y
   ddev composer require drush/drush
   ddev drush site:install --account-name=admin --account-pass=admin -y
   # Get addon and test
-  ddev get ${DIR}
+  ddev add-on get ${DIR}
   ddev restart
   ddev exec "curl -s https://localhost:443/ | grep Welcome"
   validate_tinker
@@ -113,13 +113,13 @@ teardown() {
 @test "CakePHP 5 project type" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   # Setup a CakePHP 5 project
   ddev config --project-type=cakephp --docroot=webroot
   ddev composer create --prefer-dist --no-interaction cakephp/app:~5.0
 
   # Get addon and test
-  ddev get ${DIR}
+  ddev add-on get ${DIR}
   ddev restart
   ddev exec "curl -s https://localhost:443/ | grep 'Welcome to CakePHP'"
 
