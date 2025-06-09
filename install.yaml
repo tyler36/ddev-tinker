@@ -18,3 +18,9 @@ removal_actions:
 - rm ./homeadditions/.local/share/psysh/php_manual.sqlite
 # We are changing to "project-level" command, so delete the global command if it exists.
 - if grep "#ddev-generated" ~/.ddev/commands/web/tinker 2>/dev/null; then rm ~/.ddev/commands/web/tinker; fi
+
+# Version constraint for DDEV that will be validated against the running DDEV executable
+# and prevent add-on from being installed if it doesn't validate.
+# See https://github.com/Masterminds/semver#checking-version-constraints for constraint rules.
+# Available with DDEV v1.23.4+, and works only for DDEV v1.23.4+ binaries
+ddev_version_constraint: '>= v1.24.3'
