@@ -45,16 +45,8 @@ PRs are welcome to add more frameworks.
 
 1. Install the addon
 
-   For DDEV v1.23.5 or above run
-
    ```shell
    ddev add-on get tyler36/ddev-tinker
-   ```
-
-   For earlier versions of DDEV run
-
-   ```shell
-   ddev get tyler36/ddev-tinker
    ```
 
 The addon installs globally and will be available to supported framework after running `ddev start`.
