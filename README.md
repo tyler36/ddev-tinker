@@ -1,3 +1,4 @@
+[![add-on registry](https://img.shields.io/badge/DDEV-Add--on_Registry-blue)](https://addons.ddev.com)
 [![tests](https://github.com/tyler36/ddev-tinker/actions/workflows/tests.yml/badge.svg)](https://github.com/tyler36/ddev-tinker/actions/workflows/tests.yml)
 
 # ddev-tinker <!-- omit in toc -->
