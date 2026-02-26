@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## #ddev-generated
 ## Description: This script is part of "tyler36/ddev-tinker". It's purpose is to download
