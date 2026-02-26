@@ -9,7 +9,6 @@ project_files:
 # DDEV environment variables can be interpolated into these actions
 post_install_actions:
 - |
-  #ddev-nodisplay
   #ddev-description:Downloading PHP core manual
   ddev get-php-manual
 
