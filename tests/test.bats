@@ -125,7 +125,7 @@ teardown() {
   # Setup a Laravel project
   run ddev config --project-type=laravel --docroot=public --create-docroot --php-version=8.4
   assert_success
-  run ddev composer create --prefer-dist --no-install --no-scripts laravel/laravel:12 -y
+  run ddev composer create-project laravel/laravel
   assert_success
   run ddev composer install
   assert_success
@@ -142,14 +142,14 @@ teardown() {
   validate_tinker
 }
 
-@test "Drupal 10 project type" {
+@test "Drupal project type" {
   set -eu -o pipefail
   echo "# ddev add-on get ${DIR} with Drupal project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
 
-  # Setup a Drupal 10 project
-  run ddev config --project-type=drupal10 --docroot=web --create-docroot
+  # Setup a Drupal project
+  run ddev config --project-type=drupal --docroot=web --create-docroot
   assert_success
-  run ddev composer create drupal/recommended-project:^10 -y
+  run ddev composer create-project drupal/recommended-project
   assert_success
   run ddev composer require drush/drush
   assert_success
