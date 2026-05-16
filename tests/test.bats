@@ -125,7 +125,7 @@ teardown() {
   # Setup a Laravel project
   run ddev config --project-type=laravel --docroot=public --create-docroot --php-version=8.4
   assert_success
-  run ddev composer create --prefer-dist --no-install --no-scripts laravel/laravel:12 -y
+  run ddev composer create-project laravel/laravel
   assert_success
   run ddev composer install
   assert_success
